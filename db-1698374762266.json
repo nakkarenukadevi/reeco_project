@@ -7,7 +7,8 @@
       "price": "$60.67",
       "Quantity": 0,
       "Total": "0",
-      "imageurl": "https://media.istockphoto.com/id/94929126/photo/avocados-isolated-on-white.jpg?s=1024x1024&w=is&k=20&c=4jAYlIemQmdcz9wUpVUNvm7KDDOdRWbMCvHqaXJiF2E="
+      "imageurl": "https://media.istockphoto.com/id/94929126/photo/avocados-isolated-on-white.jpg?s=1024x1024&w=is&k=20&c=4jAYlIemQmdcz9wUpVUNvm7KDDOdRWbMCvHqaXJiF2E=",
+      "status": ""
     },
     {
       "id": 2,
@@ -16,7 +17,8 @@
       "price": "$60.67",
       "Quantity": 15,
       "Total": "$9000.98",
-      "imageurl": "https://media.istockphoto.com/id/94929126/photo/avocados-isolated-on-white.jpg?s=1024x1024&w=is&k=20&c=4jAYlIemQmdcz9wUpVUNvm7KDDOdRWbMCvHqaXJiF2E="
+      "imageurl": "https://media.istockphoto.com/id/94929126/photo/avocados-isolated-on-white.jpg?s=1024x1024&w=is&k=20&c=4jAYlIemQmdcz9wUpVUNvm7KDDOdRWbMCvHqaXJiF2E=",
+      "status": ""
     },
     {
       "id": 3,
@@ -25,6 +27,7 @@
       "price": "$60.67",
       "Quantity": 15,
       "Total": "$9000.98",
+      "status": "",
       "imageurl": "https://media.istockphoto.com/id/94929126/photo/avocados-isolated-on-white.jpg?s=1024x1024&w=is&k=20&c=4jAYlIemQmdcz9wUpVUNvm7KDDOdRWbMCvHqaXJiF2E="
     },
     {
@@ -34,6 +37,7 @@
       "price": "$60.67",
       "Quantity": 0,
       "Total": 0,
+      "status": "",
       "imageurl": "https://media.istockphoto.com/id/94929126/photo/avocados-isolated-on-white.jpg?s=1024x1024&w=is&k=20&c=4jAYlIemQmdcz9wUpVUNvm7KDDOdRWbMCvHqaXJiF2E="
     },
     {
@@ -43,6 +47,7 @@
       "price": "$60.67",
       "Quantity": 13,
       "Total": "$12,654.32",
+      "status": "",
       "imageurl": "https://media.istockphoto.com/id/94929126/photo/avocados-isolated-on-white.jpg?s=1024x1024&w=is&k=20&c=4jAYlIemQmdcz9wUpVUNvm7KDDOdRWbMCvHqaXJiF2E="
     }
   ]

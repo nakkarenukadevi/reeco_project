@@ -20,6 +20,25 @@ const Body = () => {
     getdata();
   }, []);
 
+  const editProduct = (editForm, id) => {
+    let edititem = product.map((editProcutitem) => {
+      if (editProcutitem.id == id) {
+        return { ...editProcutitem, ...editForm };
+      }
+      return editProcutitem;
+    });
+    setProduct(edititem);
+  };
+  const updataProduct = (action, id) => {
+    let update = product.map((productitem) => {
+      if (productitem.id === id) {
+        return { ...productitem, status: action };
+      }
+      return productitem;
+    });
+    setProduct(update);
+  };
+
   let getdata = async () => {
     let pdata = await fetch(" http://localhost:3000/items");
     let json = await pdata.json();
@@ -92,7 +111,7 @@ const Body = () => {
           </p>
         </div>
       </div>
-      <div className=" container mx-auto mt-7 grid-row-2  border border-gray-500 rounded-lg shadow my-10 ">
+      <div className=" container mx-auto mt-7 grid-row-2  border border-gray-500 rounded-lg shadow mb-12 ">
         <div className="grid grid-cols-2 py-10 ">
           <div className="px-10 flex justify-start">
             <input
@@ -110,21 +129,28 @@ const Body = () => {
             </button>
             <FontAwesomeIcon
               icon={faPrint}
-              className="w-90 h-6 text-green-800 px-5"
+              className="w-90 h-6 text-green-800 px-5 my-3"
             />
           </div>
         </div>
-        <div className=" grid-cols-6 grid  text-lg text-gray-400 border rounded-t-lg  mx-5 shadow border-gray-400 py-2">
-          <div className="flex justify-center">ProductName</div>
-          <div className="flex justify-end">Brand</div>
-          <div className="flex justify-center ml-20">Price</div>
-          <div className="flex justify-center mr-8">Quantity</div>
-          <div className="flex justify-start"> Total</div>
-          <div className="flex justify-start mr-10">Status</div>
+        <div className=" grid-cols-8 grid  text-lg text-gray-400 border rounded-t-lg  mx-5 shadow border-gray-400 py-2">
+          <div className="flex justify-center col-span-2">ProductName</div>
+          <div className="flex justify-center ">Brand</div>
+          <div className="flex justify-center">Price</div>
+          <div className="flex justify-center">Quantity</div>
+          <div className="flex justify-center"> Total</div>
+          <div className="flex justify-center  col-span-2">Status</div>
         </div>
 
         {product.map((item) => {
-          return <ItemsList key={item.id} item={item} />;
+          return (
+            <ItemsList
+              key={item.id}
+              item={item}
+              updatProductStatus={updataProduct}
+              editProduct={editProduct}
+            />
+          );
         })}
       </div>
     </>
