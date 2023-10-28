@@ -1,20 +1,8 @@
 import "./App.css";
 import { createBrowserRouter, Outlet } from "react-router-dom";
 
-import Body from "./components/Body";
-import Header from "./components/Header";
-import { Provider } from "react-redux";
-import Store from "./components/utils/store";
-
 function App() {
-  return (
-    <>
-      <Provider store={Store}>
-        <Header />
-        <Outlet />
-      </Provider>
-    </>
-  );
+  return <></>;
 }
 
 export const appLayout = createBrowserRouter([
@@ -24,7 +12,6 @@ export const appLayout = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Body />,
       },
     ],
   },
