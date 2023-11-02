@@ -9,8 +9,8 @@ import {
 const Header = () => {
   return (
     <>
-      <div className="grid  bg-green-900 text-white grid-rows-1 grid-cols-2 text-center py-4  ">
-        <div className="grid-cols-1 flex justify-center">
+      <div className="grid  bg-green-900 text-white grid-rows-1  grid-cols-2 text-center py-4  ">
+        <div className="grid-cols-1 flex justify-center ">
           <p className="mx-20 font-bold">Reeco</p>
           <ul className="mx-3 flex text-gray-300">
             <li className="mx-4">Store</li>
@@ -38,7 +38,7 @@ const Header = () => {
             </span>
           </p>
         </div>
-        <div className="grid grid-cols-2 shadow-lg justify-start items-center ">
+        <div className="grid grid-cols-2 shadow justify-start items-center ">
           <div className=" text-xl  extrabold text-center mr-44">
             Orders 32457ABC
           </div>
@@ -51,14 +51,6 @@ const Header = () => {
             </button>
           </div>
         </div>
-      </div>
-      <div className="grid grid-rows-1 grid-cols-6 my-20 container mx-auto px-4 border border-gray-800">
-        <div>1</div>
-        <div>1</div>
-        <div>1</div>
-        <div>1</div>
-        <div>1</div>
-        <div>1</div>
       </div>
     </>
   );
