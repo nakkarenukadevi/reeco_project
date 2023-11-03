@@ -11,19 +11,21 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ItemList from "./ProductList";
 import { useDispatch, useSelector } from "react-redux";
-import { approved } from "./utils/CartSlice";
+import { productsAdded, productsModified } from "../reducers/productsSlice";
+
 
 const Body = () => {
-  let [product, setProduct] = useState([]);
+  //state.products Here state is store state, products is nothing but slice name
+  //Inside productsFromStore you will have state passed to that slice alone as you are returning state.products
+  const productsFromStore=useSelector((state)=>state.products);
   let dispatch = useDispatch();
   useEffect(() => {
     getdata();
-  });
+  },[]);
   let getdata = async () => {
-    let data = await fetch("http://localhost:3000/items");
+    let data = await fetch("http://localhost:3030/items");
     let json = await data.json();
-    // setProduct(json);
-    dispatch(json);
+    dispatch(productsAdded(json));
   };
 
   return (
@@ -101,9 +103,11 @@ const Body = () => {
               <div className="flex justify-center  col-span-2">Status</div>
             </div>
 
-            {product.map((productList) => {
-              return <ItemList productList={productList} />;
-            })}
+            {
+            productsFromStore.map((productList) => {
+              return <ItemList productList={productList}  />;
+            })
+            }
           </div>
         </div>
       </div>

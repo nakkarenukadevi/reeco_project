@@ -2,19 +2,14 @@ import React, { useState } from "react";
 import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
-import { approved } from "./utils/CartSlice";
 
 const ItemList = (props) => {
   let { id, status, ProductName, Brand, price, Quantity, imageurl, Total } =
     props.productList;
   let dispatch = useDispatch();
-  let item = useSelector((state) => state.product.status);
 
   let [getstatus, setgetstatus] = useState("");
-  let additem = (id) => {
-    dispatch(approved(id));
-    setgetstatus(item);
-  };
+
   return (
     <>
       <div
@@ -61,7 +56,7 @@ const ItemList = (props) => {
               icon={faCheck}
               className="mr-3 justify-center flex"
               onClick={() => {
-                additem(id);
+               // additem(id);
               }}
             />
             <FontAwesomeIcon icon={faXmark} className="justify-center flex" />
