@@ -8,24 +8,90 @@ import {
   faTruckFast,
   faDumpsterFire,
   faHandshake,
+  faXmark,
 } from "@fortawesome/free-solid-svg-icons";
 import ItemList from "./ProductList";
 import { useDispatch, useSelector } from "react-redux";
-import { approved } from "./utils/CartSlice";
+import { fetchdata } from "./utils/CartSlice";
+import { addProductReducer } from "./utils/CartSlice";
 
 const Body = () => {
-  let [product, setProduct] = useState([]);
+  let store_Res = useSelector((state) => state.productdata.data);
+  console.log(store_Res);
+  let [additem, setadditem] = useState(false);
+  let [addForm, setAddForm] = useState({
+    price: "",
+    Quantity: "",
+  });
   let dispatch = useDispatch();
   useEffect(() => {
     getdata();
-  });
+  }, []);
   let getdata = async () => {
     let data = await fetch("http://localhost:3000/items");
     let json = await data.json();
-    // setProduct(json);
-    dispatch(json);
+
+    dispatch(fetchdata(json));
+  };
+  let handleAddForm = (e) => {
+    setAddForm({ ...addForm, [e.target.name]: e.target.value });
+  };
+  let addProduct = () => {
+    let obj = {
+      ...store_Res[0],
+      ...addForm,
+      Total: addForm.price * addForm.Quantity,
+      id: Math.random(),
+    };
+    dispatch(addProductReducer(obj));
   };
 
+  let rednderAddProductPop = () => {
+    return (
+      <>
+        <div className="w-1/4 h-64 bg-gray-300 font-bole absolute top-3/4 left-44  text-center">
+          <FontAwesomeIcon
+            icon={faXmark}
+            className="justify-center flex"
+            onClick={() => {
+              setadditem(false);
+            }}
+          />
+          <div>
+            <label>Price:</label>{" "}
+            <input
+              type="text"
+              name="price"
+              onChange={(e) => {
+                handleAddForm(e);
+              }}
+            />
+          </div>
+          <div className="mt-3">
+            <label>Quantity:</label>{" "}
+            <input
+              type="text"
+              name="Quantity"
+              onChange={(e) => {
+                handleAddForm(e);
+              }}
+            />
+          </div>
+          <div className="mt-3">
+            <button
+              className="py-3 px-4  bg-blue-700 text-white rounded-lg"
+              onClick={() => {
+                addProduct();
+                setadditem(false);
+              }}
+            >
+              add
+            </button>
+          </div>
+        </div>
+      </>
+    );
+  };
   return (
     <>
       <div className="grid h-98 grid-row-2 mb-5">
@@ -83,7 +149,12 @@ const Body = () => {
                 />
               </div>
               <div className="flex justify-end items-end">
-                <button className="px-5 py-3 border border-green-800 rounded-full mx-5">
+                <button
+                  className="px-5 py-3 border border-green-800 rounded-full mx-5"
+                  onClick={() => {
+                    setadditem(true);
+                  }}
+                >
                   Add item
                 </button>
                 <FontAwesomeIcon
@@ -92,7 +163,7 @@ const Body = () => {
                 />
               </div>
             </div>
-            <div className=" grid-cols-9 grid  text-lg text-gray-400 border rounded-t-lg   shadow border-gray-400 py-2 mx-9">
+            <div className=" grid-cols-10 grid  text-lg text-gray-400 border rounded-t-lg   shadow border-gray-400 py-2 mx-9">
               <div className="flex justify-center col-span-3">ProductName</div>
               <div className="flex justify-center col-span-1 ">Brand</div>
               <div className="flex justify-center col-span-1">Price</div>
@@ -100,13 +171,13 @@ const Body = () => {
               <div className="flex justify-center col-span-1"> Total</div>
               <div className="flex justify-center  col-span-2">Status</div>
             </div>
-
-            {product.map((productList) => {
-              return <ItemList productList={productList} />;
+            {store_Res.map((item) => {
+              return <ItemList item={item} key={item.id} />;
             })}
           </div>
         </div>
       </div>
+      {additem ? rednderAddProductPop() : ""}
     </>
   );
 };
