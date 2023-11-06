@@ -1,9 +1,15 @@
 import React, { useState } from "react";
-import { faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheck,
+  faXmark,
+  faTrash,
+  faPencil,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { changeProductStatus } from "./utils/CartSlice";
 import { updateProductData } from "./utils/CartSlice";
+import { removeProduct } from "./utils/CartSlice";
 
 const ItemList = (props) => {
   let { id, status, ProductName, Brand, price, Quantity, imageurl, Total } =
@@ -30,20 +36,29 @@ const ItemList = (props) => {
     };
     dispatch(changeProductStatus(payload));
   };
+
+  let deletproduct = (id) => {
+    dispatch(removeProduct(id));
+  };
   const renderStatusPop = () => {
     return (
       <>
-        <div className="w-1/4 h-64 bg-gray-300 font-bole absolute top-3/4 left-44  ">
+        <div className="  absolute top-90 right-96 py-20 bg-white rounded-lg shadow  h-60">
           <FontAwesomeIcon
             icon={faXmark}
-            className="justify-center flex"
+            className="absolute top-2 right-3"
             onClick={() => {
               set_show_status_pop(false);
             }}
           />
-          <div className="grid grid-flow-row-1 font-bold">{ProductName}</div>
+          <div className="font-extrabold flex items-start mx-5">
+            Missing Product
+          </div>
+          <div className="grid grid-flow-row-1 font-bold justify-start  m-4 indent-1 text-gray-400">
+            {ProductName} `urgent?
+          </div>
 
-          <div className="flex px-4">
+          <div className="flex justify-end mr-8">
             <div
               className="mx-5"
               onClick={() => {
@@ -70,19 +85,19 @@ const ItemList = (props) => {
     switch (status) {
       case "approved":
         return (
-          <button className="bg-green-800 px-4 py-2 text-white text-bold mx-3">
+          <button className="bg-green-800 w-40 py-1 rounded-xl text-white text-bold">
             {status}
           </button>
         );
       case "Missing-urgent":
         return (
-          <button className="bg-red-800 px-4 py-2 text-white text-bold mx-3">
+          <button className="bg-red-800 w-40 py-1 rounded-xl text-white text-bold">
             {status}
           </button>
         );
       case "Missing":
         return (
-          <button className="bg-orange-500 px-4 py-2 text-white text-bold mx-3">
+          <button className="bg-orange-500 w-40 py-1 rounded-xl text-white text-bold">
             {status}
           </button>
         );
@@ -109,56 +124,99 @@ const ItemList = (props) => {
     let { price, Quantity, Total } = editForm;
 
     return (
-      <div className="w-1/4 h-74 bg-gray-300 font-bole absolute top-3/4 left-44  ">
+      <div className=" bg-white font-bold absolute top-90 right-72 w-1/2 rounded-lg shadow  mx-5 px-8 ">
         <FontAwesomeIcon
           icon={faXmark}
-          className="justify-center flex"
+          className=" flex absolute top-2 right-2 "
           onClick={() => {
             set_edit_pop(false);
           }}
         />
-        <div>
-          {ProductName}
-          <div>
-            <div>
-              <label>price:</label>
-            </div>
-            <input
-              type="text"
-              value={price}
-              name="price"
-              onChange={(e) => {
-                handleChangeEditForm(e);
-              }}
-            />
+        <div className="grid grid-cols-1 mt-14">{ProductName}</div>
+        <div className="grid grid-cols-2">
+          <div className="grid-cols-1 justify-center items-center flex">
+            <img src={imageurl} style={{ width: "150px", height: "150px" }} />
           </div>
-          <div>
-            <div>
-              <label>Quantity: </label>
+          <div className="grid grid-cols-1 justify-between">
+            <div className="grid-rows-1 flex justify-between mt-3">
+              <div className="px-3">
+                <label>price:</label>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  value={price}
+                  name="price"
+                  className="border-2 to-black rounded-lg text-center py-1"
+                  onChange={(e) => {
+                    handleChangeEditForm(e);
+                  }}
+                />
+              </div>
             </div>
-            <input
-              type="text"
-              value={Quantity}
-              name="Quantity"
-              onChange={(e) => {
-                handleChangeEditForm(e);
-              }}
-            />
-          </div>
-          <div>
-            <div>
-              <label>Total: </label>
+            <div className="grid-cols-1 flex justify-between mt-3">
+              <div className="px-3">
+                <label>Quantity: </label>
+              </div>
+              <div>
+                <input
+                  type="text"
+                  value={Quantity}
+                  name="Quantity"
+                  className="border-2 to-black rounded-lg text-center py-1"
+                  onChange={(e) => {
+                    handleChangeEditForm(e);
+                  }}
+                />
+              </div>
             </div>
-            <div>{Total}</div>
+            <div className="grid grid-rows-4  mt-3 ">
+              <div className="flex justify-between ">
+                <div className="px-3">
+                  <label>Total: </label>
+                </div>
+                <div className="border-2 w-52 rounded-lg py-1 px-3">
+                  {Total}
+                </div>
+              </div>
+            </div>
+
+            <div className="mb-10 flex items-center justify-center">
+              <div
+                className="mt-2 mx-7 text-green-700"
+                onClick={() => {
+                  set_edit_pop(false);
+                }}
+              >
+                cancel
+              </div>
+              <button
+                className="bg-green-700 text-white mt-3 px-6 py-2 rounded-full"
+                onClick={() => {
+                  updateProduct();
+                }}
+              >
+                send
+              </button>
+            </div>
           </div>
-          <button
-            className="bg-green-700 text-white mt-3 px-6 py-2 rounded-full"
-            onClick={() => {
-              updateProduct();
-            }}
-          >
-            send
-          </button>
+          <div className="grid-col-1 flex ">
+            <div>
+              <button className="bg-gray-100 w-36 mb-6  py-3 px-2  rounded-full mx-1 ">
+                MissingProduct
+              </button>
+            </div>
+            <div>
+              <button className="bg-gray-100 w-42 px-7 mb-6  py-3  rounded-full  mx-1">
+                Quantityisthenotsame
+              </button>
+            </div>
+            <div>
+              <button className="bg-gray-100 w-42 mx-5 mb-6  py-3 px-3 rounded-full  ">
+                Priceisthenotsame
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -201,24 +259,41 @@ const ItemList = (props) => {
           <FontAwesomeIcon
             icon={faCheck}
             className="mr-3 justify-center flex"
-            onClick={() => {
+            onClick={(e) => {
+              {
+                let cheack = e.currentTarget;
+                cheack.style.color = "green";
+              }
+
               changeStatus(id, "approved");
             }}
           />
           <FontAwesomeIcon
             icon={faXmark}
             className="justify-center flex"
-            onClick={() => {
+            onClick={(e) => {
+              {
+                let cross = e.currentTarget;
+                cross.style.color = "red";
+              }
               set_show_status_pop(true);
             }}
           />
           <div
-            className=" justify-center flex ml-3"
+            className=" justify-center flex mx-3"
             onClick={() => {
               set_edit_pop(true);
             }}
           >
-            Edit
+            <FontAwesomeIcon icon={faPencil} />
+          </div>
+          <div>
+            <FontAwesomeIcon
+              icon={faTrash}
+              onClick={() => {
+                deletproduct(id);
+              }}
+            />
           </div>
         </div>
       </div>

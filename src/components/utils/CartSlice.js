@@ -30,6 +30,22 @@ const cartSlice = createSlice({
     addProductReducer: (state, action) => {
       state.data.push(action.payload);
     },
+    removeProduct: (state, action) => {
+      state.data = state.data.filter((product) => {
+        if (product.id !== action.payload) {
+          return true;
+        }
+        return false;
+      });
+    },
+    serachProductItem: (state, action) => {
+      state.data = state.data.filter((serch_item) => {
+        if (serch_item.status == action.payload) {
+          return true;
+        }
+        return false;
+      });
+    },
   },
 });
 
@@ -38,5 +54,7 @@ export let {
   changeProductStatus,
   updateProductData,
   addProductReducer,
+  removeProduct,
+  serachProductItem,
 } = cartSlice.actions;
 export default cartSlice.reducer;

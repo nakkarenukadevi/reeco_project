@@ -15,10 +15,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchdata } from "./utils/CartSlice";
 import { addProductReducer } from "./utils/CartSlice";
 
+import { serachProductItem } from "./utils/CartSlice";
+
 const Body = () => {
   let store_Res = useSelector((state) => state.productdata.data);
   console.log(store_Res);
   let [additem, setadditem] = useState(false);
+  let [serachItem, setserachItem] = useState("");
   let [addForm, setAddForm] = useState({
     price: "",
     Quantity: "",
@@ -45,41 +48,53 @@ const Body = () => {
     };
     dispatch(addProductReducer(obj));
   };
-
+  let serachProduct = () => {
+    dispatch(serachProductItem(serachItem));
+  };
   let rednderAddProductPop = () => {
     return (
       <>
-        <div className="w-1/4 h-64 bg-gray-300 font-bole absolute top-3/4 left-44  text-center">
+        <div className="w-1/4 h-64 bg-white rounded-xl font-bole absolute top-72 inset-1/3 border-2 shadow  text-center">
           <FontAwesomeIcon
             icon={faXmark}
-            className="justify-center flex"
+            className="absolute top-3 right-3"
             onClick={() => {
               setadditem(false);
             }}
           />
-          <div>
-            <label>Price:</label>{" "}
-            <input
-              type="text"
-              name="price"
-              onChange={(e) => {
-                handleAddForm(e);
-              }}
-            />
+          <div className="mt-10 flex justify-between px-4 items-center">
+            <div className="font-bold">
+              <label>Price:</label>
+            </div>
+            <div>
+              <input
+                type="text"
+                name="price"
+                onChange={(e) => {
+                  handleAddForm(e);
+                }}
+                className="border-2 rounded-md py-1"
+              />
+            </div>
           </div>
-          <div className="mt-3">
-            <label>Quantity:</label>{" "}
-            <input
-              type="text"
-              name="Quantity"
-              onChange={(e) => {
-                handleAddForm(e);
-              }}
-            />
+          <div className="mt-3  flex justify-between px-4  items-center">
+            <div className="font-bold">
+              <label>Quantity:</label>
+            </div>
+            <div>
+              <input
+                type="text"
+                name="Quantity"
+                onChange={(e) => {
+                  handleAddForm(e);
+                }}
+                className="border-2 rounded-md py-1"
+              />
+            </div>
           </div>
           <div className="mt-3">
             <button
-              className="py-3 px-4  bg-blue-700 text-white rounded-lg"
+              className="py-3 px-6  bg-blue-700 text-white rounded-lg"
               onClick={() => {
                 addProduct();
                 setadditem(false);
@@ -142,10 +157,16 @@ const Body = () => {
                 <input
                   type="text"
                   className="py-2 px-20  rounded-full border border-gray-400"
+                  onChange={(e) => {
+                    setserachItem(e.target.value);
+                  }}
                 />
                 <FontAwesomeIcon
                   icon={faMagnifyingGlass}
                   className="relative right-10 top-4 text-gray-400"
+                  onClick={() => {
+                    serachProduct();
+                  }}
                 />
               </div>
               <div className="flex justify-end items-end">
